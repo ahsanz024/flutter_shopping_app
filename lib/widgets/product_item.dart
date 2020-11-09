@@ -16,7 +16,10 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context);
+    // We're loading the product once (for imageUrl and title which don't change) initially with listen: false,
+    // Down in fav button we're using a Consumer to update changes by only targetting
+    // part of the widget tree that needs to rebuild, and not the whole structure.
+    final product = Provider.of<Product>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -33,14 +36,17 @@ class ProductItem extends StatelessWidget {
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: IconButton(
-            icon: Icon(
-              product.isFavourite ? Icons.favorite : Icons.favorite_border,
+          // Adding a Consumer here to target smaller widget which needs to rebuild with data change.
+          leading: Consumer<Product>(
+            builder: (context, value, child) => IconButton(
+              icon: Icon(
+                product.isFavourite ? Icons.favorite : Icons.favorite_border,
+              ),
+              color: Colors.redAccent,
+              onPressed: () {
+                product.toggleFavourite();
+              },
             ),
-            color: Colors.redAccent,
-            onPressed: () {
-              product.toggleFavourite();
-            },
           ),
           trailing: IconButton(
             color: Theme.of(context).accentColor,
