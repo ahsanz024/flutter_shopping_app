@@ -17,6 +17,32 @@ class ProductDetails extends StatelessWidget {
       appBar: AppBar(
         title: Text("${product.title}"),
       ),
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              child: Image.network(
+                product.imageUrl,
+                fit: BoxFit.fitWidth,
+              ),
+              height: 300,
+              width: double.infinity,
+              margin: EdgeInsets.only(bottom: 10),
+            ),
+            Text(
+              "\$${product.price}",
+              style: TextStyle(fontSize: 20, color: Colors.grey[500]),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "${product.description}",
+              style: TextStyle(fontSize: 14, color: Colors.black87),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
