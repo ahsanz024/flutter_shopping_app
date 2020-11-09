@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shopping_app/providers/cart.dart';
 import 'package:flutter_shopping_app/providers/product.dart';
 import 'package:flutter_shopping_app/screens/product_details.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,7 @@ class ProductItem extends StatelessWidget {
     // Down in fav button we're using a Consumer to update changes by only targetting
     // part of the widget tree that needs to rebuild, and not the whole structure.
     final product = Provider.of<Product>(context, listen: false);
+    final cartData = Provider.of<Cart>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -51,7 +53,13 @@ class ProductItem extends StatelessWidget {
           trailing: IconButton(
             color: Theme.of(context).accentColor,
             icon: Icon(Icons.shopping_cart),
-            onPressed: () {},
+            onPressed: () {
+              cartData.addItem(
+                product.id,
+                product.price,
+                product.title,
+              );
+            },
           ),
           title: Text(
             product.title,
