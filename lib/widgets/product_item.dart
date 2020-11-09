@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_app/models/product.dart';
+import 'package:flutter_shopping_app/screens/product_details.dart';
 
 class ProductItem extends StatelessWidget {
-  final Product _product;
+  final String id;
+  final String title;
+  final String imageUrl;
 
-  ProductItem(this._product);
+  const ProductItem({
+    this.id,
+    this.title,
+    this.imageUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
-        child: Image.network(
-          this._product.imageUrl,
-          fit: BoxFit.cover,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context)
+                .pushNamed(ProductDetails.routeName, arguments: this.id);
+          },
+          child: Image.network(
+            this.imageUrl,
+            fit: BoxFit.cover,
+          ),
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
@@ -28,7 +41,7 @@ class ProductItem extends StatelessWidget {
             onPressed: () {},
           ),
           title: Text(
-            _product.title,
+            this.title,
             textAlign: TextAlign.center,
           ),
         ),
