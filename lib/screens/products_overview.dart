@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shopping_app/providers/cart.dart';
 import 'package:flutter_shopping_app/screens/cart_screen.dart';
+import 'package:flutter_shopping_app/screens/orders_screen.dart';
 import 'package:flutter_shopping_app/widgets/badge.dart';
+import 'package:flutter_shopping_app/widgets/main_drawer.dart';
 import 'package:flutter_shopping_app/widgets/products_grid.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +24,7 @@ class _ProductsOverviewState extends State<ProductsOverview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MainDrawer(),
       appBar: AppBar(
         title: Text("Products Overview"),
         actions: [
